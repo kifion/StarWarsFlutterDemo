@@ -16,6 +16,9 @@ class PersonListScreen extends StatefulWidget {
 }
 
 class _PersonListScreenState extends State<PersonListScreen> {
+  static const viewListLabel = 'Mode list';
+  static const viewGridLabel = 'Mode grid';
+
   final searchController = TextEditingController();
   List<Person> personList;
   Future<PeopleList> searchResult;
@@ -50,12 +53,12 @@ class _PersonListScreenState extends State<PersonListScreen> {
 
   void handleClick(String value) {
     switch (value) {
-      case 'Mode list':
+      case viewListLabel:
         setState(() {
           viewMode = ViewMode.LIST;
         });
         break;
-      case 'Mode grid':
+      case viewGridLabel:
         setState(() {
           viewMode = ViewMode.GRID;
         });
@@ -65,6 +68,8 @@ class _PersonListScreenState extends State<PersonListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const paddingSize = 20.0;
+
     return Scaffold(
       appBar: AppBar(
           title: Text('StarWars Persons Demo'),
@@ -72,7 +77,7 @@ class _PersonListScreenState extends State<PersonListScreen> {
             PopupMenuButton<String>(
               onSelected: handleClick,
               itemBuilder: (BuildContext context) {
-                return {'Mode list', 'Mode grid'}.map((String choice) {
+                return {viewListLabel, viewGridLabel}.map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
                     child: Text(choice),
@@ -86,7 +91,7 @@ class _PersonListScreenState extends State<PersonListScreen> {
         children: <Widget>[
           Container(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
               child: TextField(
                 controller: searchController,
                 onChanged: (text) { onSearchTextChanged(text); },

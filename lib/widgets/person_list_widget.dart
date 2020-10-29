@@ -25,34 +25,37 @@ class _PersonListState extends State<PersonList> {
   }
 
   void setBuilder() {
-    if(widget.viewMode == ViewMode.GRID) {
+    const paddingSize = 20.0;
+
+    if (widget.viewMode == ViewMode.GRID) {
       builder = GridView.builder(
         itemCount: widget.personList.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            onTap: () => Navigator
-                .of(context)
-                .push(MaterialPageRoute(builder: (_) => DetailInfoScreen(person: widget.personList[index])
-            )),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) =>
+                    DetailInfoScreen(person: widget.personList[index]))),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
               child: Text(widget.personList[index].name),
             ),
           );
         },
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 5),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, childAspectRatio: 5),
       );
     } else {
       builder = ListView.builder(
         itemCount: widget.personList.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            onTap: () => Navigator
-                .of(context)
-                .push(MaterialPageRoute(builder: (_) => DetailInfoScreen(person: widget.personList[index])
-            )),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) =>
+                    DetailInfoScreen(person: widget.personList[index]))),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
               child: Text(widget.personList[index].name),
             ),
           );
