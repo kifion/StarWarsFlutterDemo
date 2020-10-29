@@ -1,44 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:star_wars_persons/models/people.dart';
 
-class DetailInfoScreen extends StatefulWidget {
+class DetailInfoScreen extends StatelessWidget {
   final Person person;
+  static const paddingSize = 8.0;
 
   DetailInfoScreen({this.person});
 
   @override
-  _DetailInfoScreenState createState() => _DetailInfoScreenState();
-}
-
-class _DetailInfoScreenState extends State<DetailInfoScreen> {
-  static const paddingSize = 8.0;
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.person.name)),
+      appBar: AppBar(title: Text(person.name)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(paddingSize),
-            child: Text("Name: " + widget.person.name),
+            child: Text("Name: " + person.name),
           ),
           Padding(
             padding: const EdgeInsets.all(paddingSize),
-            child: Text("Eye color: " + widget.person.eyeColor),
+            child: Text("Eye color: " + person.eyeColor),
           ),
           Padding(
             padding: const EdgeInsets.all(paddingSize),
-            child: Text("Gender: " + widget.person.gender),
+            child: Text("Gender: " + person.gender),
           ),
           Padding(
             padding: const EdgeInsets.all(paddingSize),
-            child: Text("Hair color: " + widget.person.hairColor),
+            child: Text("Hair color: " + person.hairColor),
           ),
           Padding(
             padding: const EdgeInsets.all(paddingSize),
-            child: Text("Planet: " + widget.person.homeWorld),
+            child: Text("Planet: " + person.homeWorld),
           ),
         ],
       ),

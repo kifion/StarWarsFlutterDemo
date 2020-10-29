@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:star_wars_persons/http/failure.dart';
 import 'package:star_wars_persons/models/people.dart';
 import 'package:star_wars_persons/models/people_list.dart';
 import 'package:star_wars_persons/widgets/person_list_widget.dart';
@@ -43,11 +45,15 @@ class _PersonListScreenState extends State<PersonListScreen> {
   }
 
   Future<PeopleList> fetchPeoples(String string) async {
-    final response = await http.get('https://swapi.dev/api/people/?search=' + string);
-    if (response.statusCode == 200) {
+    try {
+      final response = await http.get('https://swapi.dev/api/people/?search=' + string);
       return PeopleList.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load');
+    } on SocketException {
+      throw Failure('Cannot connect to server');
+    } on HttpException {
+      throw Failure("Couldn't find the post");
+    } on FormatException {
+      throw Failure("Bad response format");
     }
   }
 
@@ -101,13 +107,15 @@ class _PersonListScreenState extends State<PersonListScreen> {
           FutureBuilder<PeopleList>(
             future: searchResult,
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Expanded(child: PersonList(personList: snapshot.data.results, viewMode: viewMode));
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return CircularProgressIndicator();
+                  default:
+                    if (snapshot.hasError)
+                      return Text('Error: ${snapshot.error}');
+                    else
+                      return Expanded(child: PersonList(personList: snapshot.data.results, viewMode: viewMode));
                 }
-                // By default, show a loading spinner.
-                return CircularProgressIndicator();
               }
           )
         ],
