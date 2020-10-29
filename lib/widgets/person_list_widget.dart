@@ -36,8 +36,8 @@ class _PersonListState extends State<PersonList> {
                 builder: (_) =>
                     DetailInfoScreen(person: widget.personList[index]))),
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: paddingSize, vertical: paddingSize),
               child: Text(widget.personList[index].name),
             ),
           );
@@ -54,8 +54,8 @@ class _PersonListState extends State<PersonList> {
                 builder: (_) =>
                     DetailInfoScreen(person: widget.personList[index]))),
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: paddingSize, vertical: paddingSize),
               child: Text(widget.personList[index].name),
             ),
           );

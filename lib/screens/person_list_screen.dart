@@ -46,7 +46,8 @@ class _PersonListScreenState extends State<PersonListScreen> {
 
   Future<PeopleList> fetchPeoples(String string) async {
     try {
-      final response = await http.get('https://swapi.dev/api/people/?search=' + string);
+      final response =
+          await http.get('https://swapi.dev/api/people/?search=' + string);
       return PeopleList.fromJson(jsonDecode(response.body));
     } on SocketException {
       throw Failure('Cannot connect to server');
@@ -78,34 +79,37 @@ class _PersonListScreenState extends State<PersonListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text('StarWars Persons Demo'),
-          actions: <Widget>[
-            PopupMenuButton<String>(
-              onSelected: handleClick,
-              itemBuilder: (BuildContext context) {
-                return {viewListLabel, viewGridLabel}.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
-            ),
-          ],
+        title: Text('StarWars Persons Demo'),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: handleClick,
+            itemBuilder: (BuildContext context) {
+              return {viewListLabel, viewGridLabel}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
       ),
       body: Column(
         children: <Widget>[
           Container(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: paddingSize, vertical: paddingSize),
               child: TextField(
                 controller: searchController,
-                onChanged: (text) { onSearchTextChanged(text); },
+                onChanged: (text) {
+                  onSearchTextChanged(text);
+                },
               ),
             ),
           ),
           FutureBuilder<PeopleList>(
-            future: searchResult,
+              future: searchResult,
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
@@ -114,10 +118,12 @@ class _PersonListScreenState extends State<PersonListScreen> {
                     if (snapshot.hasError)
                       return Text('Error: ${snapshot.error}');
                     else
-                      return Expanded(child: PersonList(personList: snapshot.data.results, viewMode: viewMode));
+                      return Expanded(
+                          child: PersonList(
+                              personList: snapshot.data.results,
+                              viewMode: viewMode));
                 }
-              }
-          )
+              })
         ],
       ),
     );

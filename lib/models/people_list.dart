@@ -11,7 +11,7 @@ class PeopleList {
   factory PeopleList.fromJson(Map<String, dynamic> json) {
     return PeopleList(
       count: json['count'] ?? null,
-      next: json['next'] ??  "",
+      next: json['next'] ?? "",
       previous: json['previous'] ?? "",
       results: json['results'] != null
           ? (json['results'] as List).map((i) => Person.fromJson(i)).toList()
