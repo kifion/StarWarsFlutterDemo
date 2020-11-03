@@ -9,11 +9,12 @@ class StarWarsGalacticApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'StarWars Persons Demo',
+      title: 'StarWars Persons',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PersonListScreen(title: 'StarWars Persons Demo'),
+      home: PersonListScreen(title: 'StarWars Persons'),
     );
   }
 }

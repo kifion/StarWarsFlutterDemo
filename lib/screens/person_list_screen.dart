@@ -79,7 +79,7 @@ class _PersonListScreenState extends State<PersonListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('StarWars Persons Demo'),
+        title: Text('StarWars Persons'),
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: handleClick,
