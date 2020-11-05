@@ -1,6 +1,6 @@
-# Start Wars Flutter demo application.
+# Start Wars Persons.
 
-For learning flutter api.
+The flutter demo application for learning flutter SDK.
 
 ![](preview.gif)
 
