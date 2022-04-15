@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:star_wars_persons/models/people.dart';
+import 'package:star_wars_api/models/people.dart';
 
 class DetailInfoScreen extends StatelessWidget {
   final Person person;
   static const paddingSize = 8.0;
 
-  DetailInfoScreen({this.person});
+  DetailInfoScreen({required this.person});
 
   @override
   Widget build(BuildContext context) {

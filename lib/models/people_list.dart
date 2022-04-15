@@ -1,4 +1,4 @@
-import 'package:star_wars_persons/models/people.dart';
+import 'package:star_wars_api/models/people.dart';
 
 class PeopleList {
   int count;
@@ -6,11 +6,11 @@ class PeopleList {
   String previous;
   List<Person> results;
 
-  PeopleList({this.count, this.next, this.previous, this.results});
+  PeopleList({required this.count, required this.next, required this.previous, required this.results});
 
   factory PeopleList.fromJson(Map<String, dynamic> json) {
     return PeopleList(
-      count: json['count'] ?? null,
+      count: json['count'],
       next: json['next'] ?? "",
       previous: json['previous'] ?? "",
       results: json['results'] != null

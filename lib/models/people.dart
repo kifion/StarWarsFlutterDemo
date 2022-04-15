@@ -17,22 +17,22 @@ class Person {
   List<String> vehicles;
 
   Person(
-      {this.birthYear,
-      this.created,
-      this.edited,
-      this.eyeColor,
-      this.films,
-      this.gender,
-      this.hairColor,
-      this.height,
-      this.homeWorld,
-      this.mass,
-      this.name,
-      this.skinColor,
-      this.species,
-      this.starships,
-      this.url,
-      this.vehicles});
+      {required this.birthYear,
+      required this.created,
+      required this.edited,
+      required this.eyeColor,
+      required this.films,
+      required this.gender,
+      required this.hairColor,
+      required this.height,
+      required this.homeWorld,
+      required this.mass,
+      required this.name,
+      required this.skinColor,
+      required this.species,
+      required this.starships,
+      required this.url,
+      required this.vehicles});
 
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(
@@ -40,7 +40,9 @@ class Person {
       created: json['created'],
       edited: json['edited'],
       eyeColor: json['eye_color'],
-      films: json['films'] != null ? List<String>.from(json['films']) : null,
+      films: json['films'] != null
+          ? List<String>.from(json['films'])
+          : List.empty(),
       gender: json['gender'],
       hairColor: json['hair_color'],
       height: json['height'],
@@ -48,14 +50,16 @@ class Person {
       mass: json['mass'],
       name: json['name'],
       skinColor: json['skin_color'],
-      species:
-          json['species'] != null ? List<String>.from(json['species']) : null,
+      species: json['species'] != null
+          ? List<String>.from(json['species'])
+          : List.empty(),
       starships: json['starships'] != null
           ? List<String>.from(json['starships'])
-          : null,
+          : List.empty(),
       url: json['url'],
-      vehicles:
-          json['vehicles'] != null ? List<String>.from(json['vehicles']) : null,
+      vehicles: json['vehicles'] != null
+          ? List<String>.from(json['vehicles'])
+          : List.empty(),
     );
   }
 

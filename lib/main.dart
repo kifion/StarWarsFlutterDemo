@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:star_wars_persons/screens/person_list_screen.dart';
+import 'package:star_wars_api/screens/person_list_screen.dart';
 
 void main() {
-  runApp(StarWarsGalacticApp());
+  runApp(const StarWarsGalacticApp());
 }
 
 class StarWarsGalacticApp extends StatelessWidget {
+  const StarWarsGalacticApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -3,15 +3,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:star_wars_persons/http/failure.dart';
-import 'package:star_wars_persons/models/people.dart';
-import 'package:star_wars_persons/models/people_list.dart';
-import 'package:star_wars_persons/widgets/person_list_widget.dart';
+import 'package:star_wars_api/http/failure.dart';
+import 'package:star_wars_api/models/people.dart';
+import 'package:star_wars_api/models/people_list.dart';
+import 'package:star_wars_api/widgets/person_list_widget.dart';
 
 class PersonListScreen extends StatefulWidget {
   final String title;
 
-  PersonListScreen({Key key, this.title}) : super(key: key);
+  PersonListScreen({required this.title});
 
   @override
   _PersonListScreenState createState() => _PersonListScreenState();
@@ -22,8 +22,8 @@ class _PersonListScreenState extends State<PersonListScreen> {
   static const viewGridLabel = 'Mode grid';
 
   final searchController = TextEditingController();
-  List<Person> personList;
-  Future<PeopleList> searchResult;
+  late List<Person> personList;
+  late Future<PeopleList> searchResult;
   ViewMode viewMode = ViewMode.GRID;
 
   @override
@@ -45,6 +45,9 @@ class _PersonListScreenState extends State<PersonListScreen> {
   }
 
   Future<PeopleList> fetchPeoples(String string) async {
+
+    print('https://swapi.dev/api/people/?search=' + string);
+
     try {
       final response =
           await http.get('https://swapi.dev/api/people/?search=' + string);
@@ -79,7 +82,7 @@ class _PersonListScreenState extends State<PersonListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('StarWars Persons'),
+        title: const Text('StarWars Persons'),
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: handleClick,
@@ -96,32 +99,34 @@ class _PersonListScreenState extends State<PersonListScreen> {
       ),
       body: Column(
         children: <Widget>[
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: paddingSize, vertical: paddingSize),
-              child: TextField(
-                controller: searchController,
-                onChanged: (text) {
-                  onSearchTextChanged(text);
-                },
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: paddingSize, vertical: paddingSize),
+            child: TextField(
+              controller: searchController,
+              onChanged: (text) {
+                onSearchTextChanged(text);
+              },
             ),
           ),
           FutureBuilder<PeopleList>(
               future: searchResult,
               builder: (context, snapshot) {
+                print(snapshot.data?.results.toString());
+
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   default:
-                    if (snapshot.hasError)
+                    if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
-                    else
+                    } else {
                       return Expanded(
-                          child: PersonList(
-                              personList: snapshot.data.results,
-                              viewMode: viewMode));
+                        child: PersonList(
+                            personList: snapshot.data?.results ?? [],
+                            viewMode: viewMode),
+                      );
+                    }
                 }
               })
         ],

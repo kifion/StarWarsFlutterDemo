@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:star_wars_persons/models/people.dart';
-import 'package:star_wars_persons/screens/detail_info_screen.dart';
-import 'package:star_wars_persons/screens/person_list_screen.dart';
+import 'package:star_wars_api/models/people.dart';
+import 'package:star_wars_api/screens/detail_info_screen.dart';
+import 'package:star_wars_api/screens/person_list_screen.dart';
 
 class PersonList extends StatefulWidget {
   final List<Person> personList;
   final ViewMode viewMode;
 
-  PersonList({this.personList, this.viewMode});
+  PersonList({required this.personList, required this.viewMode});
 
   @override
   _PersonListState createState() => _PersonListState();
@@ -33,8 +33,7 @@ class _PersonListState extends State<PersonList> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (_) =>
-                    DetailInfoScreen(person: widget.personList[index]))),
+                builder: (_) => DetailInfoScreen(person: widget.personList[index]))),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                   horizontal: paddingSize, vertical: paddingSize),
@@ -42,8 +41,8 @@ class _PersonListState extends State<PersonList> {
             ),
           );
         },
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 5),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, childAspectRatio: 1),
       );
     } else {
       builder = ListView.builder(

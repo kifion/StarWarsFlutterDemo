@@ -1,4 +1,4 @@
-package com.example.star_wars_persons
+package com.example.star_wars_api
 
 import io.flutter.embedding.android.FlutterActivity
 
